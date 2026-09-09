@@ -15,7 +15,6 @@ The Defense Information Systems Agency (DISA) is a U.S. Department of Defense (D
 | [WN11-SO-000025](https://github.com/trevorlawrence/DISA-STIG-Implementations/blob/main/STIGs/WN11-SO-000025.ps1) | The built-in guest account must be renamed | CAT II |
 | [WN11-CC-000110](https://github.com/trevorlawrence/DISA-STIG-Implementations/blob/main/STIGs/WN11-CC-000110.ps1) | Printing over HTTP must be prevented | CAT II |
 | [WN11-CC-000206](https://github.com/trevorlawrence/DISA-STIG-Implementations/blob/main/STIGs/WN11-CC-000206.ps1) | Windows Update must not obtain updates from other PCs on the internet | CAT III |
-| [WN11-00-000260](https://github.com/trevorlawrence/DISA-STIG-Implementations/blob/main/STIGs/WN11-00-000260.ps1) | The Windows 11 time service must synchronize with an appropriate DOD time source | CAT III |
 
 ## Methodology
 
@@ -72,12 +71,6 @@ configuration management.
 - **Local Group Policy:** Configure the Delivery Optimization policy to prevent internet peering.
 - **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
 - **Intune:** Configure the corresponding Delivery Optimization policy through Microsoft Intune.
-
-### WN11-00-000260
-**The Windows 11 time service must synchronize with an appropriate DOD time source**
-
-- **Local Group Policy:** Configure Windows Time Service policy settings for the appropriate synchronization method.
-- **Domain GPO:** Configure time synchronization through the Active Directory domain hierarchy.
 
 ### WN11-UR-000065
 **The "Debug programs" user right must only be assigned to the Administrators group**
