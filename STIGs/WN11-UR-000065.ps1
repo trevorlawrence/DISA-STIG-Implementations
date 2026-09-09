@@ -1,4 +1,4 @@
-**STIG: WN11-UR-000065**
+STIG: WN11-UR-000065
 Severity: CAT I
 Requirement: The "Debug programs" user right must be assigned only to the Administrators group.
 Remediation: Uses secedit to configure the Windows User Rights Assignment policy so that SeDebugPrivilege is assigned exclusively to the built-in Administrators group.
@@ -125,7 +125,7 @@ else {
     if ($verifiedSetting -eq $requiredSetting) {
         Write-Host ""
         Write-Host "WN11-UR-000065 remediation successful." -ForegroundColor Green
-        Write-Host "Debug programs is assigned only to Administrators."
+        Write-Host "The 'Debug programs' user right is assigned only to Administrators."
     }
     else {
         Write-Host ""
