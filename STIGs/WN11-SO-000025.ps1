@@ -125,7 +125,10 @@ else {
         $_ -match "^NewGuestName\s*="
     }
 
-    if ($verifiedSetting -eq $requiredSetting) {
+    # Normalize the exported value by removing quotation marks
+    $verifiedGuestName = $verifiedSetting -replace '^NewGuestName\s*=\s*"?([^"]+)"?$', '$1'
+
+    if ($verifiedGuestName -eq $requiredGuestName) {
         Write-Host ""
         Write-Host "WN11-SO-000025 remediation successful." -ForegroundColor Green
         Write-Host "The built-in Guest account has been renamed to '$requiredGuestName'."
