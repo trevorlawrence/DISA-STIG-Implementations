@@ -46,24 +46,10 @@ if ($LASTEXITCODE -ne 0) {
 # Read the exported security policy
 $securityPolicy = Get-Content $exportPath
 
-# Locate the [Privilege Rights] section
-$privilegeRightsIndex = $securityPolicy.IndexOf("[Privilege Rights]")
-
-if ($privilegeRightsIndex -eq -1) {
-    Write-Host "The [Privilege Rights] section could not be found." -ForegroundColor Red
-    Remove-Item $exportPath -Force -ErrorAction SilentlyContinue
-    exit 1
-}
-
-# Find the existing SeDebugPrivilege entry
+# Locate the existing SeDebugPrivilege setting
 $debugPrivilegeIndex = -1
 
-for ($i = $privilegeRightsIndex + 1; $i -lt $securityPolicy.Count; $i++) {
-
-    if ($securityPolicy[$i] -match "^\[.*\]$") {
-        break
-    }
-
+for ($i = 0; $i -lt $securityPolicy.Count; $i++) {
     if ($securityPolicy[$i] -match "^SeDebugPrivilege\s*=") {
         $debugPrivilegeIndex = $i
         break
@@ -71,7 +57,7 @@ for ($i = $privilegeRightsIndex + 1; $i -lt $securityPolicy.Count; $i++) {
 }
 
 # Required configuration:
-# SeDebugPrivilege = Administrators (S-1-5-32-544)
+# SeDebugPrivilege = Administrators
 $requiredSetting = "SeDebugPrivilege = *S-1-5-32-544"
 
 if ($debugPrivilegeIndex -ge 0) {
@@ -82,21 +68,20 @@ if ($debugPrivilegeIndex -ge 0) {
 }
 else {
 
-    # Find the end of the [Privilege Rights] section
-    $insertIndex = $privilegeRightsIndex + 1
+    # Find the [Privilege Rights] section
+    $privilegeRightsIndex = $securityPolicy.IndexOf("[Privilege Rights]")
 
-    while (
-        $insertIndex -lt $securityPolicy.Count -and
-        $securityPolicy[$insertIndex] -notmatch "^\[.*\]$"
-    ) {
-        $insertIndex++
+    if ($privilegeRightsIndex -eq -1) {
+        Write-Host "The [Privilege Rights] section could not be found." -ForegroundColor Red
+        Remove-Item $exportPath -Force -ErrorAction SilentlyContinue
+        exit 1
     }
 
-    # Insert the required configuration
+    # Add the required setting immediately after [Privilege Rights]
     $securityPolicy = @(
-        $securityPolicy[0..($insertIndex - 1)]
+        $securityPolicy[0..$privilegeRightsIndex]
         $requiredSetting
-        $securityPolicy[$insertIndex..($securityPolicy.Count - 1)]
+        $securityPolicy[($privilegeRightsIndex + 1)..($securityPolicy.Count - 1)]
     )
 }
 
@@ -106,20 +91,42 @@ Set-Content -Path $exportPath -Value $securityPolicy
 # Apply the modified security policy
 secedit /configure /db $databasePath /cfg $exportPath /areas USER_RIGHTS /quiet
 
-if ($LASTEXITCODE -eq 0) {
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Failed to apply the security policy." -ForegroundColor Red
+    Remove-Item $exportPath -Force -ErrorAction SilentlyContinue
+    Remove-Item $databasePath -Force -ErrorAction SilentlyContinue
+    exit 1
+}
 
-    Write-Host ""
-    Write-Host "WN11-UR-000065 remediation completed successfully." -ForegroundColor Green
-    Write-Host "Debug programs is now assigned only to the Administrators group."
+# Re-export the applied policy for verification
+$verificationPath = "$env:TEMP\WN11-UR-000065-Verification.inf"
 
+secedit /export /cfg $verificationPath /quiet
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Remediation was applied, but verification failed." -ForegroundColor Yellow
 }
 else {
 
-    Write-Host ""
-    Write-Host "WN11-UR-000065 remediation failed." -ForegroundColor Red
+    $verification = Get-Content $verificationPath
+
+    $verifiedSetting = $verification | Where-Object {
+        $_ -match "^SeDebugPrivilege\s*="
+    }
+
+    if ($verifiedSetting -eq $requiredSetting) {
+        Write-Host ""
+        Write-Host "WN11-UR-000065 remediation successful." -ForegroundColor Green
+        Write-Host "Debug programs is assigned only to Administrators."
+    }
+    else {
+        Write-Host ""
+        Write-Host "WN11-UR-000065 verification failed." -ForegroundColor Red
+        Write-Host "Current configuration: $verifiedSetting"
+    }
 }
 
 # Clean up temporary files
 Remove-Item $exportPath -Force -ErrorAction SilentlyContinue
 Remove-Item $databasePath -Force -ErrorAction SilentlyContinue
-```
+Remove-Item $verificationPath -Force -ErrorAction SilentlyContinue
