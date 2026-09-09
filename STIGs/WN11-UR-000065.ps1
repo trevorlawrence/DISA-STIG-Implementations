@@ -1,9 +1,13 @@
+**STIG: WN11-UR-000065**
+Severity: CAT I
+Requirement: The "Debug programs" user right must be assigned only to the Administrators group.
+Remediation: Uses secedit to configure the Windows User Rights Assignment policy so that SeDebugPrivilege is assigned exclusively to the built-in Administrators group.
+Validation: The resulting security policy was exported and verified locally, followed by an authenticated Tenable Policy Compliance scan to confirm remediation.
+
 <#
 .SYNOPSIS
     This PowerShell script ensures that the "Debug programs" user right
     is assigned only to the built-in Administrators group.
-
-    NOTE: Domain Group Policy may override local security policy settings. Final compliance was validated using an authenticated Tenable Policy Compliance scan.
 
 .NOTES
     Author          : Trevor Pulliam
@@ -15,6 +19,8 @@
     CVEs            : N/A
     Plugin IDs      : N/A
     STIG-ID         : WN11-UR-000065
+
+    NOTE: Domain Group Policy may override local security policy settings. Final compliance was validated using an authenticated Tenable Policy Compliance scan.
 
 .TESTED ON
     Date(s) Tested  : 2026-09-09
