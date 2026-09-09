@@ -3,6 +3,8 @@
     This PowerShell script ensures that the "Debug programs" user right
     is assigned only to the built-in Administrators group.
 
+    NOTE: Domain Group Policy may override local security policy settings. Final compliance was validated using an authenticated Tenable Policy Compliance scan.
+
 .NOTES
     Author          : Trevor Pulliam
     LinkedIn        : linkedin.com/in/trevor-pulliam/
