@@ -10,8 +10,7 @@ The Defense Information Systems Agency (DISA) is a U.S. Department of Defense (D
 | STIG ID | Title | Severity |
 |---------|-------|----------|
 | WN11-CC-000180 | Autoplay must be turned off for non-volume devices | CAT I |
-| WN11-UR-000065 | The 'Debug programs' user right must only be assigned to the Administrators
-group | CAT I |
+| WN11-UR-000065 | The 'Debug programs' user right must only be assigned to the Administrators group | CAT I |
 | WN11-AC-000020 | The password history must be configured to 24 passwords remembered | CAT II |
 | WN11-SO-000025 | The built-in guest account must be renamed | CAT II |
 | WN11-CC-000110 | Printing over HTTP must be prevented | CAT II |
