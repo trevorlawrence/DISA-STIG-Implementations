@@ -33,13 +33,65 @@ The Defense Information Systems Agency (DISA) is a U.S. Department of Defense (D
 .\WN11-CC-000315.ps1
 ```
 
-Each script sets a specific registry value required by the corresponding STIG.
+Each script implements the configuration required by its corresponding STIG
+using the appropriate Windows administrative mechanism.
+
+## Other Implementation Methods
+
+PowerShell is used in this repository to automate STIG remediation. The following
+STIGs can also be implemented through Windows administrative tools or centralized
+configuration management.
+
+### WN11-CC-000180
+**Autoplay must be turned off for non-volume devices**
+
+- **Local Group Policy:** Computer Configuration → Administrative Templates → Windows Components → AutoPlay Policies → Disallow Autoplay for non-volume devices → Enabled
+- **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
+
+### WN11-AC-000020
+**The password history must be configured to 24 passwords remembered**
+
+- **Local Group Policy:** Computer Configuration → Windows Settings → Security Settings → Account Policies → Password Policy → Enforce password history → 24 passwords
+- **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
+
+### WN11-SO-000025
+**The built-in guest account must be renamed**
+
+- **Local Group Policy:** Computer Configuration → Windows Settings → Security Settings → Local Policies → Security Options → Accounts: Rename guest account
+- **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
+
+### WN11-CC-000110
+**Printing over HTTP must be prevented**
+
+- **Local Group Policy:** Computer Configuration → Administrative Templates → System → Internet Communication Management → Internet Communication settings → Turn off printing over HTTP → Enabled
+- **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
+
+### WN11-CC-000206
+**Windows Update must not obtain updates from other PCs on the internet**
+
+- **Local Group Policy:** Configure the Delivery Optimization policy to prevent internet peering.
+- **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
+- **Intune:** Configure the corresponding Delivery Optimization policy through Microsoft Intune.
+
+### WN11-00-000260
+**The Windows 11 time service must synchronize with an appropriate DOD time source**
+
+- **Local Group Policy:** Configure Windows Time Service policy settings for the appropriate synchronization method.
+- **Domain GPO:** Configure time synchronization through the Active Directory domain hierarchy.
+
+### WN11-UR-000065
+**The "Debug programs" user right must only be assigned to the Administrators group**
+
+- **Local Group Policy:** Computer Configuration → Windows Settings → Security Settings → Local Policies → User Rights Assignment → Debug programs
+- **Domain GPO:** Apply the user-right assignment through a domain-based Group Policy Object.
+
+> **Note:** Domain Group Policy may override local configuration. Organizations should use centralized configuration management where appropriate.
 
 ## Verification
 
 After running a script, verify compliance by either:
-- Re-running a Tenable STIG scan
-- Manually checking the registry value with `Get-ItemProperty`
+* Re-running a Tenable STIG scan
+* Manually checking the resulting configuration
 
 ## Environment Tested
 
