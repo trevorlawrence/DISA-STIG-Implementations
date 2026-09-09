@@ -52,7 +52,7 @@ if ($LASTEXITCODE -ne 0) {
 $passwordPolicy = net accounts
 
 $historySetting = $passwordPolicy | Where-Object {
-    $_ -match "Unique passwords remembered"
+    $_ -match "Length of password history maintained"
 }
 
 if ($historySetting -match "24") {
