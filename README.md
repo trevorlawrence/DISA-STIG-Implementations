@@ -1,4 +1,4 @@
-# DISA STIG Remediation Scripts
+# DISA STIG Remediation & Compliance
 This repository contains PowerShell scripts used to remediate DISA Security Technical Implementation Guide (STIG) findings identified through Tenable vulnerability scans on Windows 11 systems.
 
 ## About
