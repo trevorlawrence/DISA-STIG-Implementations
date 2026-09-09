@@ -22,8 +22,8 @@ Implementation Options: PowerShell, Local Group Policy, or Domain GPO.
     STIG-ID         : WN11-00-000260
 
     NOTE: Domain Group Policy may override local policy settings. Final compliance was validated using an authenticated Tenable Policy Compliance scan.
-    NOTE: This script is intended for domain-joined systems using the Active Directory domain hierarchy for time synchronization. Systems requiring manual NTP configuration
-must use an authorized DoD time source.
+    NOTE: This script is intended for domain-joined systems using the Active Directory domain hierarchy for time synchronization.
+      Systems requiring manual NTP configuration must use an authorized DoD time source.
 
 .TESTED ON
     Date(s) Tested  : 2026-09-09
