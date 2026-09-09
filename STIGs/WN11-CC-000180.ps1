@@ -1,4 +1,3 @@
-```powershell
 <#
 .SYNOPSIS
     This PowerShell script ensures that the "Debug programs" user right
