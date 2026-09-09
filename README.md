@@ -14,7 +14,7 @@ The Defense Information Systems Agency (DISA) is a U.S. Department of Defense (D
 | [WN11-AC-000020](https://github.com/trevorlawrence/DISA-STIG-Implementations/blob/main/STIGs/WN11-AC-000020.ps1) | The password history must be configured to 24 passwords remembered | CAT II |
 | [WN11-SO-000025](https://github.com/trevorlawrence/DISA-STIG-Implementations/blob/main/STIGs/WN11-SO-000025.ps1) | The built-in guest account must be renamed | CAT II |
 | [WN11-CC-000110](https://github.com/trevorlawrence/DISA-STIG-Implementations/blob/main/STIGs/WN11-CC-000110.ps1) | Printing over HTTP must be prevented | CAT II |
-| [WN11-CC-000206](https://github.com/trevorlawrence/DISA-STIG-Implementations/blob/main/STIGs/WN11-CC-000206.ps1) | Windows Update must not obtain updates from other PCs on the internet | CAT III |
+| [WN11-CC-000030](https://github.com/trevorlawrence/DISA-STIG-Implementations/blob/main/STIGs/WN11-CC-000030.ps1) | The system must be configured to prevent ICMP redirects from overriding OSPF generated routes | CAT III |
 
 ## Methodology
 
