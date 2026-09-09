@@ -30,7 +30,7 @@ The Defense Information Systems Agency (DISA) is a U.S. Department of Defense (D
 
 ```powershell
 # Run as Administrator
-.\WN11-CC-000315.ps1
+.\WN11-CC-000180.ps1
 ```
 
 Each script implements the configuration required by its corresponding STIG
