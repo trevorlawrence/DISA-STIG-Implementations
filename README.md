@@ -65,6 +65,12 @@ configuration management.
 - **Local Group Policy:** Computer Configuration → Administrative Templates → System → Internet Communication Management → Internet Communication settings → Turn off printing over HTTP → Enabled
 - **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
 
+### WN11-CC-000175
+**The Application Compatibility Program Inventory must be prevented from collecting data and sending the information to Microsoft**
+
+- **Local Group Policy:** Computer Configuration → Administrative Templates → Windows Components → Application Compatibility → Turn off Inventory Collector → Enabled
+- **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
+
 ### WN11-CC-000206
 **Windows Update must not obtain updates from other PCs on the internet**
 
