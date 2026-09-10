@@ -71,13 +71,6 @@ configuration management.
 - **Local Group Policy:** Computer Configuration → Administrative Templates → Windows Components → Application Compatibility → Turn off Inventory Collector → Enabled
 - **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
 
-### WN11-CC-000206
-**Windows Update must not obtain updates from other PCs on the internet**
-
-- **Local Group Policy:** Configure the Delivery Optimization policy to prevent internet peering.
-- **Domain GPO:** Apply the same policy through a domain-based Group Policy Object.
-- **Intune:** Configure the corresponding Delivery Optimization policy through Microsoft Intune.
-
 ### WN11-UR-000065
 **The "Debug programs" user right must only be assigned to the Administrators group**
 
